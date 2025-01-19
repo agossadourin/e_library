@@ -11,6 +11,7 @@ import 'package:e_library/core/constants/app_colors.dart';
 class PrincipalController extends GetxController {
   static PrincipalController instance = Get.find();
   RxBool isLoading = false.obs;
+  RxBool isDarkMode = false.obs;
   RxList<Shelf> shelves = <Shelf>[].obs;
 
   @override

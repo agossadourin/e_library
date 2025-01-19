@@ -1,3 +1,4 @@
+import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:e_library/core/controllers/splash_screen/splash_screen_controller.dart';
 import 'package:e_library/core/instances/instances.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +12,7 @@ class SplashScreen extends StatelessWidget {
     final SplashScreenController controller = splashScreenController;
 
     return Scaffold(
+      backgroundColor: ThemeData().primaryColor,
       body: Center(
         child: Obx(() => AnimatedOpacity(
               opacity: controller.opacity.value,

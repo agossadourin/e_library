@@ -1,5 +1,4 @@
 import 'dart:math';
-
 import 'package:e_library/core/instances/instances.dart';
 import 'package:e_library/data/models/shelf.dart';
 import 'package:e_library/modules/principal/pages/shelf_details_page.dart';
@@ -22,6 +21,9 @@ class ShelfWidget extends StatelessWidget {
     );
     return GestureDetector(
       onTap: () {
+        shelfDetailsController.pagingController.refresh();
+        shelfDetailsController.booksIds.value = shelf.booksIds;
+        shelfDetailsController.shelfId.value = shelf.id;
         Get.to(ShelfDetailsPage(shelf: shelf));
       },
       child: Card(

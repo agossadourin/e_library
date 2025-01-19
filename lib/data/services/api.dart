@@ -44,12 +44,41 @@ class ApiService {
         '$_baseUrl/shelves/$shelfId/forms',
       );
       if (response.statusCode == 200) {
-        logger.d(response.data);
+        //logger.d(response.data);
         List<String> bookIds =
             (response.data as List).map((item) => item as String).toList();
         int bookCount = bookIds.length;
         logger.d('bookcount: $bookCount');
         return Right(bookIds);
+      } else {
+        logger.d(response);
+        return Left(Exception('Failed to load data'));
+      }
+    } catch (e) {
+      return Left(Exception(e.toString()));
+    }
+  }
+
+  // route to get books on a shelf with pagination
+  Future<Either<Exception, List<String>>> getBooksOnShelf({
+    required String shelfId,
+    required int offset,
+    required int limit,
+  }) async {
+    try {
+      logger.d('shelf id:');
+      logger.d(shelfId);
+      final response = await _dio.get(
+        '$_baseUrl/shelves/$shelfId/forms',
+        queryParameters: {
+          'offset': offset,
+          'limit': limit,
+        },
+      );
+      if (response.statusCode == 200) {
+        List<String> books = List<String>.from(response.data);
+
+        return Right(books);
       } else {
         logger.d(response);
         return Left(Exception('Failed to load data'));
