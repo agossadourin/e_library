@@ -1,5 +1,8 @@
-import 'package:e_library/data/models/shelf.dart';
 import 'dart:math';
+
+import 'package:e_library/core/instances/instances.dart';
+import 'package:e_library/data/models/shelf.dart';
+
 import 'package:e_library/data/models/book.dart';
 import 'package:e_library/data/services/api.dart';
 import 'package:e_library/core/controllers/principal/shelf_details_controller.dart';
@@ -7,7 +10,6 @@ import 'package:e_library/modules/principal/pages/book_details_page.dart';
 import 'package:e_library/modules/principal/widgets/my_search_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
 class ShelfDetailsPage extends StatelessWidget {
   final Shelf shelf;
@@ -19,31 +21,82 @@ class ShelfDetailsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final random = Random();
+    final color = Color.fromARGB(
+      255,
+      random.nextInt(256),
+      random.nextInt(256),
+      random.nextInt(256),
+    );
     return Scaffold(
-      appBar: AppBar(
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(100.0),
+        child: AppBar(
+          centerTitle: false,
+          backgroundColor: color,
+          title: Text(
+            shelf.title,
+            style: TextStyle(
+              fontSize: 30,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+            ),
+            textAlign: TextAlign.center,
+          ),
+          bottom: PreferredSize(
+            preferredSize: Size.fromHeight(50.0),
+            child: Obx(() => Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Card(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text('Page: '),
+                            IconButton(
+                              icon: Icon(
+                                Icons.arrow_back,
+                                size: 15,
+                              ),
+                              onPressed: shelfDetailsController.previousPage,
+                            ),
+                            Text(
+                                '${shelfDetailsController.currentPage.value + 1} / ${(shelfDetailsController.booksIds.length / shelfDetailsController.pageSize).ceil()}'),
+                            IconButton(
+                              icon: Icon(
+                                Icons.arrow_forward,
+                                size: 15,
+                              ),
+                              onPressed: shelfDetailsController.nextPage,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    Card(
+                      child: IconButton(
+                          onPressed: () {}, icon: Icon(Icons.search)),
+                    )
+                  ],
+                )),
+          ),
+        ),
+      )
+
+      /*AppBar(
         title: Text(shelf.title),
-        actions: [
-          Obx(() => Row(
-                children: [
-                  IconButton(
-                    icon: Icon(Icons.arrow_back),
-                    onPressed: shelfDetailsController.previousPage,
-                  ),
-                  Text(
-                      '${shelfDetailsController.currentPage.value + 1} / ${(shelfDetailsController.booksIds.length / shelfDetailsController.pageSize).ceil()}'),
-                  IconButton(
-                    icon: Icon(Icons.arrow_forward),
-                    onPressed: shelfDetailsController.nextPage,
-                  ),
-                ],
-              )),
-        ],
-      ),
+        actions: [],
+      )*/
+      ,
       body: Column(
         children: [
-          MySearchBar(),
           Expanded(
             child: Obx(() {
+              logger.d(
+                  'page current: ${shelfDetailsController.currentPage.value}');
               final pageStart = shelfDetailsController.currentPage.value *
                   shelfDetailsController.pageSize;
               final pageEnd = pageStart + shelfDetailsController.pageSize;

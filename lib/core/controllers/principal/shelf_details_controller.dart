@@ -25,6 +25,7 @@ class ShelfDetailsController extends GetxController {
   void onInit() {
     super.onInit();
     // Initialize total pages when books are loaded
+    currentPage.value = 0;
     ever(booksIds, (_) {
       totalPages.value = (booksIds.length / pageSize).ceil();
     });

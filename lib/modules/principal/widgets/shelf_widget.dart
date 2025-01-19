@@ -22,6 +22,7 @@ class ShelfWidget extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         shelfDetailsController.pagingController.refresh();
+        shelfDetailsController.currentPage.value = 0;
         shelfDetailsController.booksIds.value = shelf.booksIds;
         shelfDetailsController.shelfId.value = shelf.id;
         Get.to(ShelfDetailsPage(shelf: shelf));
