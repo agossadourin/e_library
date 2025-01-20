@@ -1,13 +1,12 @@
 import 'dart:math';
 
+import 'package:e_library/core/constants/app_colors.dart';
 import 'package:e_library/core/instances/instances.dart';
 import 'package:e_library/data/models/shelf.dart';
-
 import 'package:e_library/data/models/book.dart';
 import 'package:e_library/data/services/api.dart';
 import 'package:e_library/core/controllers/principal/shelf_details_controller.dart';
-import 'package:e_library/modules/principal/pages/book_details_page.dart';
-import 'package:e_library/modules/principal/widgets/my_search_bar.dart';
+import 'package:e_library/modules/principal/widgets/book_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -21,27 +20,38 @@ class ShelfDetailsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final random = Random();
-    final color = Color.fromARGB(
-      255,
-      random.nextInt(256),
-      random.nextInt(256),
-      random.nextInt(256),
-    );
     return Scaffold(
+      backgroundColor: principalController.isDarkMode.value
+          ? AppColors.backgroundColorDark
+          : AppColors.backgroundColor,
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(100.0),
         child: AppBar(
           centerTitle: false,
-          backgroundColor: color,
+          backgroundColor: principalController.isDarkMode.value
+              ? AppColors.backgroundColorDark3
+              : AppColors.backgroundColor,
           title: Text(
             shelf.title,
             style: TextStyle(
               fontSize: 30,
               fontWeight: FontWeight.bold,
-              color: Colors.white,
+              color: principalController.isDarkMode.value
+                  ? AppColors.title1ColorDark
+                  : Colors.black,
             ),
             textAlign: TextAlign.center,
+          ),
+          leading: IconButton(
+            icon: Icon(
+              Icons.arrow_back_ios,
+              color: principalController.isDarkMode.value
+                  ? Colors.white
+                  : Colors.black,
+            ),
+            onPressed: () {
+              Get.back();
+            },
           ),
           bottom: PreferredSize(
             preferredSize: Size.fromHeight(50.0),
@@ -76,10 +86,17 @@ class ShelfDetailsPage extends StatelessWidget {
                         ),
                       ),
                     ),
-                    Card(
-                      child: IconButton(
-                          onPressed: () {}, icon: Icon(Icons.search)),
-                    )
+                    Obx(() => principalController.isLoading.value
+                        ? CircularProgressIndicator()
+                        : Card(
+                            child: IconButton(
+                                onPressed: () async {
+                                  logger.d('going to search page');
+                                  await shelfDetailsController
+                                      .fetchAllBooks(); // Fetch all books when the page is loaded
+                                },
+                                icon: Icon(Icons.search)),
+                          ))
                   ],
                 )),
           ),
@@ -133,72 +150,7 @@ class ShelfDetailsPage extends StatelessWidget {
                       return Obx(() {
                         if (book.title.toLowerCase().contains(
                             shelfDetailsController.query.value.toLowerCase())) {
-                          return GestureDetector(
-                            onTap: () {
-                              Get.to(() => BookDetailsPage(book: book));
-                            },
-                            child: Card(
-                              elevation: 5,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Container(
-                                    height: 200,
-                                    width: double.infinity,
-                                    decoration: BoxDecoration(
-                                      color: Colors.blueGrey,
-                                      borderRadius: BorderRadius.vertical(
-                                          top: Radius.circular(10)),
-                                    ),
-                                    child: Center(
-                                      child: ClipRRect(
-                                        borderRadius: BorderRadius.vertical(
-                                            top: Radius.circular(10)),
-                                        child: book.image.isNotEmpty
-                                            ? Image.network(
-                                                book.image,
-                                                fit: BoxFit.cover,
-                                                width: double.infinity,
-                                                height: 200,
-                                                errorBuilder: (context, error,
-                                                    stackTrace) {
-                                                  return Center(
-                                                      child: Icon(Icons.error));
-                                                },
-                                              )
-                                            : SizedBox(
-                                                child: Text(
-                                                  book.title,
-                                                  style: TextStyle(
-                                                      fontSize: 10,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      color: Colors.white),
-                                                ),
-                                              ),
-                                      ),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Text(
-                                      book.title,
-                                      maxLines: 2,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          );
+                          return BookWidget(book: book);
                         } else {
                           return SizedBox.shrink();
                         }

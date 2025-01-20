@@ -15,7 +15,14 @@ class ShelvesPage extends StatelessWidget {
               ? AppColors.backgroundColorDark
               : AppColors.backgroundColor,
           appBar: AppBar(
-            title: Text('Liste des étagères'),
+            title: Text(
+              'Liste des étagères',
+              style: TextStyle(
+                color: principalController.isDarkMode.value
+                    ? AppColors.title1ColorDark
+                    : AppColors.title1Color,
+              ),
+            ),
             backgroundColor: principalController.isDarkMode.value
                 ? AppColors.backgroundColorDark
                 : AppColors.backgroundColor,
