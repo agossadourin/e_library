@@ -7,6 +7,8 @@ import 'package:get/get.dart';
 class SearchPage extends StatelessWidget {
   final TextEditingController searchController = TextEditingController();
 
+  SearchPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -19,29 +19,16 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AdaptiveTheme(
-        light: ThemeData(
-          primaryColor: Colors.white,
-          brightness: Brightness.light,
-          primarySwatch: Colors.red,
-          //accentColor: Colors.amber,
+    return GetMaterialApp(
+      debugShowCheckedModeBanner: false,
+      initialRoute: '/',
+      getPages: [
+        GetPage(name: '/', page: () => SplashScreen()),
+        GetPage(
+          name: '/shelves',
+          page: () => ShelvesPage(),
         ),
-        dark: ThemeData(
-          primaryColor: Colors.black12,
-          brightness: Brightness.dark,
-          primarySwatch: Colors.red,
-          // accentColor: Colors.amber,
-        ),
-        initial: AdaptiveThemeMode.light,
-        builder: (theme, darkTheme) => GetMaterialApp(
-              initialRoute: '/',
-              getPages: [
-                GetPage(name: '/', page: () => SplashScreen()),
-                GetPage(
-                  name: '/shelves',
-                  page: () => ShelvesPage(),
-                ),
-              ],
-            ));
+      ],
+    );
   }
 }

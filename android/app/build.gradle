@@ -21,20 +21,30 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId = "com.example.e_library"
+        applicationId = "com.elibrary.e_library"
         // You can update the following values to match your application needs.
         // For more information, see: https://flutter.dev/to/review-gradle-config.
         minSdk = flutter.minSdkVersion
         targetSdk = flutter.targetSdkVersion
-        versionCode = flutter.versionCode
-        versionName = flutter.versionName
+        versionCode = 3
+        versionName = "1.0.3"
+    }
+
+   signingConfigs {
+        release {
+            keyAlias 'my-key-alias'
+            keyPassword 'password'
+            storeFile file('/Users/agossadourin/my-release-key.jks')
+            storePassword 'password'
+        }
     }
 
     buildTypes {
         release {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
-            signingConfig = signingConfigs.debug
+             signingConfig signingConfigs.release
+            minifyEnabled false
+            shrinkResources false
+            // Other configurations
         }
     }
 }

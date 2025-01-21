@@ -4,6 +4,7 @@ import 'package:e_library/data/models/book.dart';
 import 'package:e_library/modules/principal/pages/book_details_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shimmer_animation/shimmer_animation.dart';
 
 class BookWidget extends StatelessWidget {
   const BookWidget({
@@ -45,6 +46,21 @@ class BookWidget extends StatelessWidget {
                           fit: BoxFit.cover,
                           width: double.infinity,
                           height: 200,
+                          loadingBuilder: (context, child, loadingProgress) {
+                            if (loadingProgress == null) return child;
+                            return Shimmer(
+                              duration: Duration(seconds: 2), //Default value
+                              color: Colors.white, //Default value
+                              enabled: true, //Default value
+                              child: Container(
+                                width: double.infinity,
+                                height: 200,
+                                color: !principalController.isDarkMode.value
+                                    ? Colors.grey[300]
+                                    : Colors.grey[700],
+                              ),
+                            );
+                          },
                           errorBuilder: (context, error, stackTrace) {
                             return Center(child: Icon(Icons.error));
                           },

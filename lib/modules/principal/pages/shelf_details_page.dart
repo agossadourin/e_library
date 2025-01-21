@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:e_library/core/constants/app_colors.dart';
 import 'package:e_library/core/instances/instances.dart';
 import 'package:e_library/data/models/shelf.dart';

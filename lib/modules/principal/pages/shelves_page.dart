@@ -1,4 +1,3 @@
-import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:e_library/core/constants/app_colors.dart';
 import 'package:e_library/core/instances/instances.dart';
 import 'package:e_library/modules/principal/widgets/shelf_widget.dart';
