@@ -79,10 +79,6 @@
 
 ### Packages Utilisés
 
-- **`adaptive_theme`** :
-  - Utilisé pour implémenter le changement de thème (clair/sombre) de manière fluide.
-  - Permet de sauvegarder le préférence utilisateur.
-
 - **`dio`** :
   - Gère les appels API avec des options avancées comme les interceptors et une gestion efficace des erreurs.
 
