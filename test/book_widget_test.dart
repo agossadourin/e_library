@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:e_library/data/models/book.dart';
 import 'package:e_library/modules/principal/widgets/book_widget.dart';
 import 'package:e_library/core/controllers/principal/principal_controller.dart';
-import 'package:shimmer_animation/shimmer_animation.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
