@@ -1,4 +1,3 @@
-import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:e_library/core/controllers/principal/principal_controller.dart';
 import 'package:e_library/core/controllers/principal/shelf_details_controller.dart';
 import 'package:e_library/core/controllers/splash_screen/splash_screen_controller.dart';

@@ -15,12 +15,21 @@ dependencies:
   get: ^4.6.6
   infinite_scroll_pagination: ^4.1.0
   logger: ^2.5.0
+  mockito: ^5.4.5
   shimmer_animation: ^2.2.2
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^5.0.0
+  flutter_launcher_icons: ^0.9.2
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/icons/app_icon.png"
 
 flutter:
   uses-material-design: true
+  assets:
+    - assets/images/

@@ -135,11 +135,4 @@ class ShelfDetailsController extends GetxController {
     pagingController.dispose();
     super.onClose();
   }
-
-  // Method to handle search/filtering
-  void setQuery(String value) {
-    query.value = value;
-    currentPage.value = 0; // Reset to first page when searching
-    pagingController.refresh();
-  }
 }
