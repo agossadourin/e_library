@@ -148,8 +148,8 @@ Base de l'API : `https://api.glose.com`
 ## Déploiement
 
 
-- ** (iOS) ** : Une vidéo demo est disponible a ce lien: .
-- **Play Console** (Android) : Lien privé fourni après approbation.
+- ** (iOS) ** : Une vidéo demo est disponible a ce [lien](https://youtube.com/shorts/Jiykyi6Ipdc).
+- **Play Console** (Android) : Accédez a l'application sur play Store en tant que testeur interne en suivant ce [Lien](https://play.google.com/apps/internaltest/4701365308279037380).  
 
 
 
